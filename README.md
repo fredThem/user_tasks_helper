@@ -1,10 +1,14 @@
 # User Tasks Helper
 ## Installation
 
+### User Tasks
+
 ```json
 {
   // See https://go.microsoft.com/fwlink/?LinkId=733558
   // for the documentation about the tasks.json format
+
+  // ~/Library/Application Support/Code/User/tasks.json
   "version": "2.0.0",
   "tasks": [
     {...}
