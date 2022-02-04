@@ -2,11 +2,11 @@
 
 ## Installation
 
+### User|Workspace|Project Tasks
+
 ```sh
 npm install -g user_task_helpers
 ```
-
-### User|Workspace|Project Tasks
 
 ```json
 {
