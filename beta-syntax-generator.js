@@ -69,34 +69,19 @@ ${gitBranch}
       .replaceAll(/[\/]/gm, ""),
     betaVersion: version.split(".").at(-1),
   }
-  console.log(`From {"Version" : "${pack.version}"}`)
+  console.log(
+    `From {"Version" : "` + chalk.bold.yellow(`${pack.version}`) + `"}`
+  )
 
   // TODO : Évaluer si une version beta a déjà été publié sous `${pack.name}@${pack.version}`. Si oui mettre a jour `pack.version`dans package.json pour matcher la dernière version publié, continuer.
-
-  const isBeta = version.startsWith(beta.pre)
-
-  if (!isBeta) {
-    beta.fromVersion = pack.version.replaceAll(".", "")
-    pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.0`
-  } else {
-    const re = /(?!0.0.0-beta-from)[0-9]{2,}/
-    beta.fromVersion = re.exec(version)
-    pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.${
-      Number(beta.betaVersion) + 1
-    }`
-  }
-  fs.writeFileSync(
-    `${sourcePath}/package.json`,
-    JSON.stringify(pack, null, indent)
-  )
 
   initPublish()
 
   async function initPublish() {
     const choices = [
-      { message: `Publier ${pack.name}@${pack.version}`, name: "publier" },
+      { message: `Incrémenter et publier une nouvelle beta`, name: "publier" },
       {
-        message: `Copier la commande pour installer ${pack.name}@${pack.version}`,
+        message: `Copier la commande pour installer la beta`,
         name: "install",
       },
       { message: `Renommer la branche ${gitBranch}`, name: "corriger" },
@@ -117,33 +102,47 @@ ${gitBranch}
       process.exit(0)
     }
   }
-  async function copyInstallCommand() {
+  async function copyInstallCommand(pack) {
+    // pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.${Number(beta.betaVersion)}`
     const installCommand = `npm i ${pack.name}@${pack.version} --save-exact`
 
-    console.log(`>>>>>>>>>>>>>>> Installez la beta publié avec:`)
-    console.log(success(installCommand))
+    console.log(`\n\n>>>>>>>>>>>>>>> Installez la beta publié avec:`)
+    console.log(success(installCommand) + "\n")
     clipboard.writeSync(installCommand)
   }
 
   async function startFromChoice(choice) {
     if (choice === "publier") {
+      const isBeta = version.startsWith(beta.pre)
+
+      if (!isBeta) {
+        beta.fromVersion = pack.version.replaceAll(".", "")
+        pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.0`
+      } else {
+        const re = /(?!0.0.0-beta-from)[0-9]{2,}/
+        beta.fromVersion = re.exec(version)
+        pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.${
+          Number(beta.betaVersion) + 1
+        }`
+      }
+
+      fs.writeFileSync(
+        `${sourcePath}/package.json`,
+        JSON.stringify(pack, null, indent)
+      )
+
       const publishCommand = `cd ${sourcePath} ${preparePublishing.join(
         ""
       )} npm publish --tag beta`
       console.log(success(publishCommand))
       execSync(publishCommand, { encoding: "utf-8" })
 
-      copyInstallCommand()
+      copyInstallCommand(pack)
     } else if (choice === "install") {
-      pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.${
-        Number(beta.betaVersion) - 1
-      }`
-      fs.writeFileSync(
-        `${sourcePath}/package.json`,
-        JSON.stringify(pack, null, indent)
-      )
-
-      copyInstallCommand()
+      pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.${Number(
+        beta.betaVersion
+      )}`
+      copyInstallCommand(pack)
     } else if (choice === "corriger") {
       // process.exit(0);
       const currentName = gitBranch
