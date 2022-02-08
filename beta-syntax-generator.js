@@ -139,9 +139,7 @@ ${gitBranch}
 
       copyInstallCommand(pack)
     } else if (choice === "install") {
-      pack.version = `${beta.pre}${beta.fromVersion}-${beta.workItem}.${Number(
-        beta.betaVersion
-      )}`
+      // pack.version = `${pack.version}`
       copyInstallCommand(pack)
     } else if (choice === "corriger") {
       // process.exit(0);
