@@ -1,6 +1,6 @@
 {
   "name": "user_task_helpers",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a toolshed for creating tasks",
   "keywords": [
     "task"
@@ -20,17 +20,24 @@
     "*.{js,css,md}": "prettier --write"
   },
   "dependencies": {
+    "@types/npm": "^7.19.0",
     "chalk": "^5.0.0",
     "clipboardy": "^3.0.0",
     "copy-to-clipboard": "^3.3.1",
     "detect-indent": "^7.0.0",
     "enquirer": "^2.3.6",
     "lodash": "^4.17.21",
-    "readline": "^1.3.0"
+    "npm": "^8.4.1",
+    "npm-package-versions": "^1.0.1",
+    "readline": "^1.3.0",
+    "rimraf": "^3.0.2",
+    "version-exists": "^0.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
     "@babel/node": "^7.16.8",
+    "@babel/types": "^7.17.0",
+    "@types/rimraf": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -39,6 +46,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.28.0",
+    "grunt": "^1.4.1",
     "husky": "^7.0.4",
     "ignore-sync": "^4.0.0",
     "lint-staged": "^12.3.3",
