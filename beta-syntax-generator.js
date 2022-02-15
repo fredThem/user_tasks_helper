@@ -131,6 +131,24 @@ ${gitBranch}
         JSON.stringify(pack, null, indent)
       )
 
+      /*       // versionExists(pack.name, pack.version).then(exists => console.log(exists))
+      const checkIfPublished = (name, version) => {
+        const checkCommand= `npm view ${name} versions`
+        console.log("🚀 ~ file: beta-syntax-generator.js ~ line 137 ~ checkIfPublished ~ checkCommand", checkCommand)
+        // const checkOutPut = exec(checkCommand, { encoding: "utf-8", cwd: `${argv[2]}` }, )
+        const checkOutPut = exec(checkCommand,{cwd:`${argv[2]}`}, (error, stdout, stderr) => {
+          if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+          }
+          console.log(`stdout: ${stdout}`);
+          console.error(`stderr: ${stderr}`);
+        });
+        console.log("checkOutPut",checkOutPut)
+        return checkOutPut
+      }
+      checkIfPublished(pack.name, pack.version);
+ */
       const publishCommand = `cd ${sourcePath} ${preparePublishing.join(
         ""
       )} npm publish --tag beta`
