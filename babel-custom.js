@@ -33,12 +33,6 @@ export const customBabel = () => {
     pack = {
       ...pack,
       plugins: ["@babel/plugin-transform-react-jsx-source"],
-      env: {
-        development: {
-          sourceMaps: "inline",
-          retainLines: true,
-        },
-      },
     }
   } else if (action == "delete") {
     delete pack.plugins
