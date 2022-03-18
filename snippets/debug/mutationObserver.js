@@ -4,11 +4,14 @@
  * @param {*} config describe which DOM mutations should be reported to mutationObserver's callback.
  * @see [developer.mozilla.org/.../API/MutationObserver/observe](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/observe)
  */
-const Observing = (targetClass, config) => {
+const ObservingClassMutation = (targetClass, config) => {
   const elements = document.getElementsByClassName(targetClass)
   Array.prototype.forEach.call(elements, function (elem) {
     let observer = new MutationObserver((mutationRecords) => {
-      console.group(`${targetClass} mutations`)
+      console.group(
+        `%c"${targetClass}" mutations`,
+        "color:orange; font-size:1.3em;"
+      )
       for (const mutationRecord in mutationRecords) {
         if (Object.hasOwnProperty.call(mutationRecords, mutationRecord)) {
           const record = mutationRecords[mutationRecord]
@@ -16,21 +19,35 @@ const Observing = (targetClass, config) => {
           const newValue = record.target.className.split(" ")
           const diff = {
             intersection: oldValue.filter((x) => newValue.includes(x)),
-            removed: oldValue.filter((x) => !newValue.includes(x)),
-            added: newValue.filter((x) => !oldValue.includes(x)),
+            "added 🟢": newValue.filter((x) => !oldValue.includes(x)),
+            "removed 🔴": oldValue.filter((x) => !newValue.includes(x)),
           }
-          console.table(diff)
+          //   console.table(diff)
+          console.log(
+            `${diff["intersection"]}, %c${diff["added 🟢"]}, %c${diff["removed 🔴"]}`,
+            "color:limegreen;",
+            "color:red;"
+          )
+          //   debugger;
           // const transit = { "oldValue": oldValue, "newValue": newValue}
           // console.table(transit);
+          //   debugger;
         }
       }
-      console.groupEnd(`${targetClass} mutations`)
-      console.table(mutationRecords) // console.log(the changes)
+      console.groupEnd(
+        `%c"${targetClass}" mutations`,
+        "color:orange; font-size:1.3em;"
+      )
+      console.log(mutationRecords) // console.log(the changes)
     })
 
     console.group("config")
 
-    console.warn(`observing attribute "${config.attributeFilter}" on:`, elem)
+    console.warn(
+      `%cobserving attribute "${config.attributeFilter}" on:`,
+      "font-size:1.5em;",
+      elem
+    )
     console.log({ config })
     observer.observe(elem, config)
     console.log(observer)
@@ -40,11 +57,11 @@ const Observing = (targetClass, config) => {
   // observe everything except attributes
 }
 
-Observing("search-filter", {
+ObservingClassMutation("search-filter", {
   // attributes: true,
   attributeFilter: ["class"],
   attributeOldValue: true,
-  characterDataOldValue: true,
+  //   characterDataOldValue: true,
   // childList: true, // observe direct children
   // subtree: true, // and lower descendants too
   // characterDataOldValue: true, // pass old data to callback
