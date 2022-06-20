@@ -34,11 +34,11 @@ const ObservingClassMutation = (targetClass, config) => {
           //   debugger;
         }
       }
+      console.log(mutationRecords) // console.log(the changes)
       console.groupEnd(
         `%c"${targetClass}" mutations`,
         "color:orange; font-size:1.3em;"
       )
-      console.log(mutationRecords) // console.log(the changes)
     })
 
     console.group("config")
@@ -66,3 +66,4 @@ ObservingClassMutation("search-filter", {
   // subtree: true, // and lower descendants too
   // characterDataOldValue: true, // pass old data to callback
 })
+export { ObservingClassMutation as default }

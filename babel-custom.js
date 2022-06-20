@@ -18,8 +18,13 @@ const action = argv[3]
 console.log({ sourcePath })
 
 const source = fs.readFileSync(`${sourcePath}/babel.config.json`, "utf-8")
-const indent = detectIndent(source).indent || "  "
-let pack = JSON.parse(source)
+console.log("🚀 ~ file: babel-custom.js ~ line 21 ~ source", source)
+// console.log*
+const regex = /,\s+}/gm
+const sourceSub = source.replaceAll(regex, "}")
+console.log("🚀 ~ file: babel-custom.js ~ line 30 ~ sourceSub", sourceSub)
+const indent = detectIndent(sourceSub).indent || "  "
+let pack = JSON.parse(sourceSub)
 console.log({ pack })
 
 export const customBabel = () => {
