@@ -1,18 +1,255 @@
-// eslint-disable-next-line no-undef
 module.exports = {
-  'env': {
-    'browser': true,
-    'es2021': true,
-  },
-  'extends': [
+  root: true,
+  parser: '@typescript-eslint/parser',
+  extends: [
     'eslint:recommended',
-    'prettier'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:import/typescript',
+    'prettier',
   ],
-  'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module',
+  env: {
+    browser: true,
+    node: true,
   },
-  'rules': {
-    'no-multiple-empty-lines': ["error", { "max": 2, "maxEOF": 0 }]
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 11,
+    sourceType: 'module',
+    tsconfigRootDir: __dirname,
   },
+  reportUnusedDisableDirectives: true,
+  plugins: [
+    '@typescript-eslint',
+    'eslint-plugin-no-inline-styles',
+    'import',
+    'jsx-a11y',
+    'react-hooks',
+    'react',
+  ],
+  ignorePatterns: [
+    'dist',
+    'node_modules',
+    '__mocks__',
+    'build',
+    'coverage',
+    'deploy',
+    'internals',
+  ],
+  rules: {
+    'arrow-body-style': 1,
+    'class-methods-use-this': 0,
+    'newline-per-chained-call': 0,
+    'no-confusing-arrow': 0,
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-debugger': 'error',
+    'no-nested-ternary': 1,
+    'no-inline-styles/no-inline-styles': 2,
+    'no-use-before-define': 0,
+    'no-var': 1,
+    'no-param-reassign': [
+      'error',
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['state', 'draft'],
+      },
+    ],
+    'no-restricted-imports': [
+      'warn',
+      {
+        patterns: [
+          {
+            group: ['@cbcradcan/shellunit*'],
+            message:
+              'Rappel: Pour utiliser une composante du Shell, veuillez svp la copier dans votre projet.',
+          },
+        ],
+      },
+    ],
+    'object-shorthand': ['error', 'always'],
+    'prefer-const': 'error',
+    'prefer-template': 2,
+    'require-yield': 0,
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-empty-function': [
+      'error',
+      { allow: ['arrowFunctions'] },
+    ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { argsIgnorePattern: '^_', ignoreRestSiblings: true },
+    ],
+    '@typescript-eslint/consistent-type-imports': 1,
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'import/first': 1,
+    'import/newline-after-import': 0,
+    'import/no-cycle': 1,
+    'import/no-default-export': 0,
+    'import/no-dynamic-require': 0,
+    'import/no-extraneous-dependencies': 0,
+    'import/no-named-as-default': 0,
+    'import/no-webpack-loader-syntax': 0,
+    // turn on errors for missing imports
+    'import/no-unresolved': 'error',
+    'import/order': [
+      'warn',
+      {
+        'newlines-between': 'always',
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'unknown',
+          'parent',
+          'sibling',
+          'index',
+          'object',
+          'type',
+        ],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+        // pathGroups: [
+        //   {
+        //     pattern: 'react',
+        //     group: 'builtin',
+        //     position: 'before',
+        //   },
+        //   {
+        //     pattern: '@cbcradcan/shellunit*',
+        //     group: 'external',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: '@cbcradcan/vcinq*',
+        //     group: 'external',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: '@cbcradcan/bodyhtml*',
+        //     group: 'external',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: '@cbcradcan/**',
+        //     group: 'external',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: '@vcinq*',
+        //     group: 'external',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: 'assets/**',
+        //     group: 'internal',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: 'boot/**',
+        //     group: 'internal',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: 'lib/**',
+        //     group: 'internal',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: 'middlewares/**',
+        //     group: 'internal',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: 'containers/**',
+        //     group: 'internal',
+        //     position: 'after',
+        //   },
+        //   {
+        //     pattern: 'components/**',
+        //     group: 'internal',
+        //     position: 'after',
+        //   },
+        // ],
+        // pathGroupsExcludedImportTypes: ['react'],
+      },
+    ],
+    'import/prefer-default-export': 0,
+    'jsx-a11y/aria-props': 2,
+    'jsx-a11y/heading-has-content': 0,
+    'jsx-a11y/anchor-is-valid': 0,
+    'jsx-a11y/label-has-associated-control': 2,
+    'jsx-a11y/mouse-events-have-key-events': 2,
+    'jsx-a11y/role-has-required-aria-props': 2,
+    'jsx-a11y/role-supports-aria-props': 2,
+    'react/prop-types': 0,
+    'react/jsx-boolean-value': ['error', 'never'],
+    'react/jsx-curly-brace-presence': [
+      'error',
+      { props: 'never', children: 'never' },
+    ],
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/forbid-prop-types': 0,
+    'react/jsx-no-target-blank': 0,
+    'react/no-array-index-key': 0,
+    'react/require-default-props': 0,
+    'react/self-closing-comp': 0,
+    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/rules-of-hooks': 'error',
+  },
+  settings: {
+    // react: {
+    //   version: 'detect',
+    // },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts', '.tsx'],
+        paths: [
+          'app',
+          'appOhdio',
+          'appMaj',
+          'appAlimentation',
+          'appProfileCA',
+          'node_modules/@cbcradcan/vcinq/support-es',
+          'node_modules',
+        ],
+      },
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.json',
+      },
+    },
+  },
+  overrides: [
+    {
+      files: ['./app/**/reducers.ts'],
+      rules: {
+        'default-param-last': 'off',
+      },
+    },
+    {
+      files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    },
+  ],
 };

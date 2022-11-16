@@ -1,6 +1,30 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.insertSpaces": true,
+    "eslint.options": {
+        "overrideConfigFile": ".eslintrc.cjs"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "files.eol": "\n",
+    "formattingToggle.affects": [
+        "editor.formatOnPaste",
+        "editor.formatOnSave",
+        "editor.formatOnType"
+    ],
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "js/ts.implicitProjectConfig.experimentalDecorators": true,
+    "prettier.configPath": ".prettierrc.cjs",
+    "search.exclude": {
+        "**/.git": true,
+        "**/bower_components": true,
+        "**/dist": true,
+        "**/node_modules": true,
+        "**/tmp": true
+    },
 }
