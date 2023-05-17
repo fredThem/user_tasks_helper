@@ -29,9 +29,9 @@ export const betaSyntaxPublish = () => {
   const { version } = pack;
 
   // const preparePublishing = ["prepublish", "prepublishOnly", "type-check"].map(
-  // const preparePublishing = ['prepublishOnly'].map(function (e) {
-  //   return `npm run ${e} --if-present && `;
-  // });
+  const preparePublishing = ['prepublishOnly'].map(function (e) {
+    return `npm run ${e} --if-present && `;
+  });
   // console.log(chalk.red(preparePublishing.join('')));
 
   // Test si le nom de la branch contient d'association au ticket jira ie:"MNMN-1234"
@@ -144,7 +144,9 @@ ${gitBranch}
       checkIfPublished(pack.name, pack.version);
  */
       // const publishCommand = `cd ${sourcePath} ${preparePublishing.join(
-      const publishCommand = `cd ${sourcePath} && npm publish --tag beta`;
+      const publishCommand = `cd ${sourcePath} && ${preparePublishing.join(
+        '',
+      )} npm publish --tag beta`;
       console.log(success(publishCommand));
       execSync(publishCommand, { encoding: 'utf-8' });
 
